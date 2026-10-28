@@ -2,7 +2,7 @@ import SwiftUI
 
 
 // Equivalente al enum TipoServicio de Kotlin.
-enum TipoServicio: String, CaseIterable, Identifiable {
+enum TipoServicio: String, CaseIterable, Codable, Identifiable {
     case AGUA
     case LUZ
     case GAS

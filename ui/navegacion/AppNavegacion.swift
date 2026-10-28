@@ -2,199 +2,137 @@
 //  AppNavegacion.swift
 //  ServipagoIOS
 //
-//  Created by MAC16 on 28/10/26.
-//
 
 import SwiftUI
 
-
-enum RutaApp: Hashable {
-    case bienvenida
-    case iniciarSesion
-    case crearCuenta
-    case olvidoPassword
-    case inicio
-    case misServicios
-    case pagos
-    case ajustes
-    case perfil
-    case creditos
-}
-
-
 struct AppNavegacion: View {
-    @State private var rutaActual: RutaApp = .bienvenida
+    @State private var pantallaActual: Pantallas = .Bienvenida
+    @State private var historial: [Pantallas] = []
+    @State private var mensaje: String?
     @State private var mostrarMensaje = false
-    @State private var mensaje = ""
 
+    // Estados locales sincronizados con la base de datos local
+    @State private var listaServicios: [ServicioEntity] = []
+    @State private var listaPagos: [PagoEntity] = []
 
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
 
-
-            Group {
-                switch rutaActual {
-                case .bienvenida:
-                    Bienvenidaview(
-                        accion: {
-                            navegar(.iniciarSesion)
-                        },
-                        accionCrear: {
-                            navegar(.crearCuenta)
-                        }
-                    )
-
-
-                case .iniciarSesion:
-                    IniciarSesionView(
-                        onLoginExitoso: {
-                            navegar(.inicio, limpiarHistorial: true)
-                        },
-                        onIrARegistro: {
-                            navegar(.crearCuenta)
-                        }
-                    )
-
-
-                case .crearCuenta:
-                    CrearCuentaView(
-                        accionIniciarSesion: {
-                            navegar(.iniciarSesion)
-                        },
-                        accionRegistroExitoso: {
-                            mensaje = "Cuenta creada exitosamente"
-                            mostrarMensaje = true
-                            navegar(.bienvenida, limpiarHistorial: true)
-                        }
-                    )
-
-
-                case .olvidoPassword:
-                    OlvidoPasswordView(
-                        accionVolverLogin: {
-                            navegar(.iniciarSesion)
-                        }
-                    )
-
-
-                case .inicio:
-                    InicioView(
-                        accionServicioAgregado: { nombre in
-                            mensaje = "Servicio \(nombre) agregado"
-                            mostrarMensaje = true
-                        },
-                        accionInicio: {},
-                        accionServicios: {
-                            navegar(.misServicios)
-                        },
-                        accionPagos: {
-                            navegar(.pagos)
-                        },
-                        accionAjustes: {
-                            navegar(.ajustes)
-                        },
-                        accionPerfil: {
-                            navegar(.perfil)
-                        }
-                    )
-
-
-                case .misServicios:
-                    MisServiciosView(
-                        accionInicio: {
-                            navegar(.inicio)
-                        },
-                        accionPagos: {
-                            navegar(.pagos)
-                        },
-                        accionAjustes: {
-                            navegar(.ajustes)
-                        }
-                    )
-
-
-                case .pagos:
-                    PagosView(
-                        accionInicio: {
-                            navegar(.inicio)
-                        },
-                        accionServicios: {
-                            navegar(.misServicios)
-                        },
-                        accionAjustes: {
-                            navegar(.ajustes)
-                        }
-                    )
-
-
-                case .ajustes:
-                    AjustesView(
-                        accionInicio: {
-                            navegar(.inicio)
-                        },
-                        accionServicios: {
-                            navegar(.misServicios)
-                        },
-                        accionPagos: {
-                            navegar(.pagos)
-                        }
-                    )
-
-
-                case .perfil:
-                    PerfilView(
-                        onCerrarSesion: {
-                            navegar(.bienvenida, limpiarHistorial: true)
-                        },
-                        onIrACreditos: {
-                            navegar(.creditos)
-                        }
-                    )
-
-
-                case .creditos:
-                    CreditosView(
-                        accionVolver: {
-                            navegar(.perfil)
-                        }
-                    )
-                }
-            }
+            contenidoPantalla
         }
         .overlay(alignment: .top) {
-            if mostrarMensaje {
+            if mostrarMensaje, let mensaje = mensaje {
                 Text(mensaje)
                     .font(.system(size: 14, weight: .medium))
                     .foregroundColor(.white)
                     .padding()
                     .background(Color.gray.opacity(0.95))
                     .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .padding(.horizontal, 20)
                     .padding(.top, 12)
-                    .onAppear {
-                        DispatchQueue.main.asyncAfter(
-                            deadline: .now() + 2.5
-                        ) {
-                            mostrarMensaje = false
-                        }
-                    }
             }
         }
     }
 
-
-    private func navegar(
-        _ destino: RutaApp,
-        limpiarHistorial: Bool = false
-    ) {
-        // En esta versión sencilla, cambiar la ruta reemplaza
-        // la pantalla actual. Limpiar el historial no requiere
-        // una operación adicional.
-        rutaActual = destino
+    @ViewBuilder
+    private var contenidoPantalla: some View {
+        switch pantallaActual {
+        case .Bienvenida:
+            Bienvenida(
+                accion: { navegarA(.IniciarSesion) },
+                accionCrear: { navegarA(.CrearCuenta) }
+            )
+            
+        case .IniciarSesion:
+            IniciarSesion(
+                onLoginExitoso: { navegarA(.Inicio, limpiarHistorial: true) },
+                onIrARegistro: { navegarA(.CrearCuenta) },
+                onOlvidoPassword: { navegarA(.OlvidoPassword) }
+            )
+            
+        case .CrearCuenta:
+            CrearCuenta(
+                accionIniciarSesion: { navegarA(.IniciarSesion) },
+                accionRegistroExitoso: {
+                    navegarA(.Bienvenida, limpiarHistorial: true)
+                    mostrarAviso("Cuenta creada exitosamente")
+                }
+            )
+            
+        case .OlvidoPassword:
+            OlvidoPassword(accionVolverLogin: { volver() })
+            
+        case .Inicio:
+            Inicio(
+                servicios: $listaServicios,
+                historial: $listaPagos,
+                accionPerfil: { navegarA(.Perfil) }
+            )
+            
+        case .MisServicios:
+            MisServicios(
+                servicios: $listaServicios,
+                historial: $listaPagos,
+                accionNavegacion: { destino in manejarNavegacionBarra(destino) }
+            )
+            
+        case .Pagos:
+            Pagos(
+                historial: $listaPagos,
+                accionNavegacion: { destino in manejarNavegacionBarra(destino) }
+            )
+            
+        case .Ajustes:
+            Ajustes(
+                accionNavegacion: { destino in manejarNavegacionBarra(destino) }
+            )
+            
+        case .Perfil:
+            Perfil(
+                onCerrarSesion: { navegarA(.Bienvenida, limpiarHistorial: true) },
+                onIrACreditos: { navegarA(.Creditos) }
+            )
+            
+        case .Creditos:
+            Creditos(accionVolver: { volver() })
+        }
     }
-}
 
+    private func manejarNavegacionBarra(_ destino: String) {
+        switch destino {
+        case "Inicio":
+            navegarA(.Inicio)
+        case "Servicios":
+            navegarA(.MisServicios)
+        case "Pagos":
+            navegarA(.Pagos)
+        case "Ajustes":
+            navegarA(.Ajustes)
+        default:
+            break
+        }
+    }
 
-#Preview {
-    AppNavegacion()
+    private func navegarA(_ destino: Pantallas, limpiarHistorial: Bool = false) {
+        if limpiarHistorial {
+            historial.removeAll()
+        } else {
+            historial.append(pantallaActual)
+        }
+        pantallaActual = destino
+    }
+
+    private func volver() {
+        guard let anterior = historial.popLast() else { return }
+        pantallaActual = anterior
+    }
+
+    private func mostrarAviso(_ texto: String) {
+        mensaje = texto
+        mostrarMensaje = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            if self.mensaje == texto { self.mostrarMensaje = false }
+        }
+    }
 }

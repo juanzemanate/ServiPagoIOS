@@ -6,7 +6,28 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		28BA943D30929D22000561E3 /* SesionUsuario.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BA943930929D22000561E3 /* SesionUsuario.swift */; };
+		28BA943E30929D22000561E3 /* ServicioEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BA943830929D22000561E3 /* ServicioEntity.swift */; };
+		28BA943F30929D22000561E3 /* UsuarioDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BA943A30929D22000561E3 /* UsuarioDao.swift */; };
+		28BA944030929D22000561E3 /* PagoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BA943630929D22000561E3 /* PagoEntity.swift */; };
+		28BA944130929D22000561E3 /* NubeRepositorio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BA943430929D22000561E3 /* NubeRepositorio.swift */; };
+		28BA944230929D22000561E3 /* ServicioDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BA943730929D22000561E3 /* ServicioDao.swift */; };
+		28BA944330929D22000561E3 /* AppDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BA943330929D22000561E3 /* AppDatabase.swift */; };
+		28BA944430929D22000561E3 /* UsuarioEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BA943B30929D22000561E3 /* UsuarioEntity.swift */; };
+		28BA944530929D22000561E3 /* PagoDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BA943530929D22000561E3 /* PagoDao.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		28BA943330929D22000561E3 /* AppDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDatabase.swift; sourceTree = "<group>"; };
+		28BA943430929D22000561E3 /* NubeRepositorio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NubeRepositorio.swift; sourceTree = "<group>"; };
+		28BA943530929D22000561E3 /* PagoDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagoDao.swift; sourceTree = "<group>"; };
+		28BA943630929D22000561E3 /* PagoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagoEntity.swift; sourceTree = "<group>"; };
+		28BA943730929D22000561E3 /* ServicioDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicioDao.swift; sourceTree = "<group>"; };
+		28BA943830929D22000561E3 /* ServicioEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicioEntity.swift; sourceTree = "<group>"; };
+		28BA943930929D22000561E3 /* SesionUsuario.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SesionUsuario.swift; sourceTree = "<group>"; };
+		28BA943A30929D22000561E3 /* UsuarioDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsuarioDao.swift; sourceTree = "<group>"; };
+		28BA943B30929D22000561E3 /* UsuarioEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsuarioEntity.swift; sourceTree = "<group>"; };
 		48E37FB13091618C00C5584F /* ServipagoIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServipagoIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -34,9 +55,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		28BA943C30929D22000561E3 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				28BA943330929D22000561E3 /* AppDatabase.swift */,
+				28BA943430929D22000561E3 /* NubeRepositorio.swift */,
+				28BA943530929D22000561E3 /* PagoDao.swift */,
+				28BA943630929D22000561E3 /* PagoEntity.swift */,
+				28BA943730929D22000561E3 /* ServicioDao.swift */,
+				28BA943830929D22000561E3 /* ServicioEntity.swift */,
+				28BA943930929D22000561E3 /* SesionUsuario.swift */,
+				28BA943A30929D22000561E3 /* UsuarioDao.swift */,
+				28BA943B30929D22000561E3 /* UsuarioEntity.swift */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
 		48E37FA83091618C00C5584F = {
 			isa = PBXGroup;
 			children = (
+				28BA943C30929D22000561E3 /* data */,
 				4892BAE930927FE400A2ADC4 /* ui */,
 				48E37FB33091618C00C5584F /* ServipagoIOS */,
 				48E37FB23091618C00C5584F /* Products */,
@@ -126,6 +164,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28BA943D30929D22000561E3 /* SesionUsuario.swift in Sources */,
+				28BA943E30929D22000561E3 /* ServicioEntity.swift in Sources */,
+				28BA943F30929D22000561E3 /* UsuarioDao.swift in Sources */,
+				28BA944030929D22000561E3 /* PagoEntity.swift in Sources */,
+				28BA944130929D22000561E3 /* NubeRepositorio.swift in Sources */,
+				28BA944230929D22000561E3 /* ServicioDao.swift in Sources */,
+				28BA944330929D22000561E3 /* AppDatabase.swift in Sources */,
+				28BA944430929D22000561E3 /* UsuarioEntity.swift in Sources */,
+				28BA944530929D22000561E3 /* PagoDao.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

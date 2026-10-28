@@ -5,7 +5,7 @@
 //  Created by MAC17 on 26/10/26.
 //
 
-import SwiftUI
+/*import SwiftUI
 
 struct ContentView: View {
     @Binding var servicios: [Servicio]
@@ -56,4 +56,4 @@ struct ContentView: View {
         servicios: .constant([]),
         historial: .constant([])
     )
-}
+}*/
