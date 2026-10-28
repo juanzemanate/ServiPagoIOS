@@ -8,10 +8,12 @@
 import SwiftUI
 
 @main
-struct ServipagoIOSApp: App {
+struct ServiPagoApp: App {
+    @State private var servicios: [Servicio] = []
+    @State private var historial: [Pago] = []
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(servicios: $servicios, historial: $historial)
         }
     }
 }

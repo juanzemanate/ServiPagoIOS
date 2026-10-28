@@ -11,6 +11,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		4892BAE930927FE400A2ADC4 /* ui */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ui;
+			sourceTree = "<group>";
+		};
 		48E37FB33091618C00C5584F /* ServipagoIOS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ServipagoIOS;
@@ -32,6 +37,7 @@
 		48E37FA83091618C00C5584F = {
 			isa = PBXGroup;
 			children = (
+				4892BAE930927FE400A2ADC4 /* ui */,
 				48E37FB33091618C00C5584F /* ServipagoIOS */,
 				48E37FB23091618C00C5584F /* Products */,
 			);
@@ -61,6 +67,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				4892BAE930927FE400A2ADC4 /* ui */,
 				48E37FB33091618C00C5584F /* ServipagoIOS */,
 			);
 			name = ServipagoIOS;
